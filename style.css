@@ -520,3 +520,89 @@ body {
 .cards-grid::-webkit-scrollbar { width: 4px; }
 .cards-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
 .cards-grid::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+
+/* 1. Liberar o comportamento global do celular */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh; /* Permite que o fundo cresça se precisar */
+    background: #05070f;
+    /* Remove o overflow: hidden antigo que travava o scroll */
+    overflow-y: auto; 
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. Ajustar o container do jogo */
+.game-container {
+    width: 100vw;
+    max-width: 480px;
+    /* Mudamos de height: 100vh para min-height, assim ele estica se o botão sumir */
+    min-height: 100vh; 
+    background: radial-gradient(circle at top, #161f38 0%, #0a0e1a 100%);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    /* Tiramos o overflow: hidden daqui também! */
+}
+
+/* 3. Ajustar as telas internas (Seleção e Batalha) */
+.screen {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    padding: 14px;
+    /* Se a tela for muito pequena, o conteúdo interno empurra o botão e cria scroll */
+    height: auto; 
+}
+.screen.active { 
+    display: flex; 
+}
+
+/* 4. Garantir que a Arena de Batalha não esmague os botões no celular */
+.cards-battle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 20px; /* Margem de segurança */
+}
+
+/* 5. Deixar o rodapé de ação visível e empurrável */
+.action-footer {
+    margin-top: auto; 
+    padding: 15px 0;
+    width: 100%;
+}
+
+/* 6. Garantir que o Modal "UAU" role se os status ficarem muito grandes em telas pequenas */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(4, 6, 14, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; /* Permite rolar o modal se o celular for muito pequeno */
+    padding: 20px 0;
+}
+
+.modal-card {
+    background: radial-gradient(circle at center, #1b2647 0%, #0c1124 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 380px;
+    border-radius: 24px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    /* Se a tela for minúscula, impede que o card saia cortado */
+    margin: auto; 
+}
